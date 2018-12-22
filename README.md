@@ -9,9 +9,13 @@
 2. database のアクセスは後回し
 3. master ビルド時に CircleCI 経由で docker image も作れるようにしたい
 
+## 説明
+* src/Kernel.ts
+    * bind 処理を司る
+
 ## 実行方法
 
 ```
+$ npm run format
 $ npm start
 ```
-
