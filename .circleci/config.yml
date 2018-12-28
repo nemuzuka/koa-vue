@@ -1,0 +1,63 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:10.14
+    steps:
+      - checkout
+      - setup_remote_docker
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}-{{ checksum "client-web/package.json" }}
+            - v1-dependencies-
+      - run:
+          name: Install npms
+          command: |
+            npm install; npm rebuild node-sass
+      - run:
+          name: Install npms(Client)
+          command: |
+            cd client-web; npm install; npm rebuild node-sass
+      - run:
+          name: Install dependencies
+          command: sudo apt-get install -y python3-pip; sudo pip3 install awscli
+      - save_cache:
+          paths:
+            - node_modules
+            - client-web/node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}-{{ checksum "client-web/package.json" }}
+      - run:
+          name: Build Vue.js module
+          command: cd client-web; npm run build
+      - run:
+          name: Running tslint
+          command: npm run tslint-check
+      - run:
+          name: Running tests
+          command: npm run test
+      - run:
+          name: Push application Docker image
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              echo "export IMAGE_NAME=${REPOSITORY_NAME}:latest" >> $BASH_ENV
+              echo "export IMAGE_TAG=latest" >> $BASH_ENV
+              source $BASH_ENV
+            elif [ "${CIRCLE_BRANCH}" == "develop" ]; then
+              echo "export IMAGE_NAME=${REPOSITORY_NAME}:develop-${CIRCLE_SHA1}" >> $BASH_ENV
+              echo "export IMAGE_TAG=development" >> $BASH_ENV
+              source $BASH_ENV
+            else
+              echo "No push branch: ${CIRCLE_BRANCH}"
+              exit 0
+            fi
+            echo "IMAGE_TAG: ${IMAGE_TAG} / IMAGE_NAME: ${IMAGE_NAME}"
+            docker build -t ${IMAGE_TAG} .
+            $(aws ecr get-login --no-include-email)
+            docker tag ${IMAGE_TAG} ${ECR_ENDPOINT}/${IMAGE_TAG}
+            docker push ${ECR_ENDPOINT}/${IMAGE_TAG}
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
