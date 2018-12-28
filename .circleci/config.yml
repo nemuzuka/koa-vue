@@ -52,10 +52,10 @@ jobs:
               exit 0
             fi
             echo "IMAGE_TAG: ${IMAGE_TAG} / IMAGE_NAME: ${IMAGE_NAME}"
-            docker build -t ${IMAGE_TAG} .
+            docker build -t ${IMAGE_NAME} .
             $(aws ecr get-login --no-include-email)
-            docker tag ${IMAGE_TAG} ${ECR_ENDPOINT}/${IMAGE_TAG}
-            docker push ${ECR_ENDPOINT}/${IMAGE_TAG}
+            docker tag ${IMAGE_TAG} ${ECR_ENDPOINT}/${IMAGE_NAME}
+            docker push ${ECR_ENDPOINT}/${IMAGE_NAME}
 workflows:
   version: 2
   build_and_test:
