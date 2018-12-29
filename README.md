@@ -7,7 +7,7 @@
     * tslint でチェックも
     * テストの書き方も
 2. database のアクセスは後回し
-3. master ビルド時に CircleCI 経由で docker image も作れるようにしたい
+3. master / develop ビルド時に CircleCI 経由で docker image も作れるようにしたい
 
 ## 説明
 * src 配下
@@ -36,7 +36,7 @@ $ npm start
 * `AWS_ACCESS_KEY_ID`
 * `AWS_SECRET_ACCESS_KEY`
 * `AWS_DEFAULT_REGION`
-* `ECR_ENDPOINT`: e.g. <ACCOUNT-ID>.dkr.ecr.ap-northeast-1.amazonaws.com
+* `ECR_ENDPOINT`: e.g. `<ACCOUNT-ID>.dkr.ecr.ap-northeast-1.amazonaws.com`
 * `REPOSITORY_NAME`
     * `${ECR_ENDPOINT}/${REPOSITORY_NAME}` となるように設定します
 
