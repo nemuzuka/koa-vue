@@ -43,9 +43,9 @@ $ npm start
 ### 基本ポリシー
 
 1. develop ブランチの build 時に docker image を作成する
-    * develop-ハッシュ値
+    * development-${CIRCLE_BUILD_NUM}
 2. master ブランチの build 時に docker image を作成する
-    * latest
+    * master-${CIRCLE_BUILD_NUM}
 3. feature ブランチの build 時には docker image を作成しない
     * 本当は常に作成した方がいいとは思うのだけど...
 
