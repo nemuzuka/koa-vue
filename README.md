@@ -22,6 +22,19 @@
     * フロントの build 結果をここに出力する
     * koa-static での参照先が本ディレクトリとなる
 
+## Test
+
+`src/__tests__/` 配下に格納。
+
+### Integration Test
+
+Koa 経由で実行するパターン
+
+* `foo/FooControllerIntegration.spec.ts`
+    * 実際に API を呼び出して結果を確認する
+* `StaticControllerIntegrationTest.spec.ts`
+    * `/` アクセス時の確認(`koa-static` が設定されているかの確認)
+
 ## 実行方法
 
 ```
