@@ -22,6 +22,21 @@
     * フロントの build 結果をここに出力する
     * koa-static での参照先が本ディレクトリとなる
 
+## Test
+
+`src/__tests__/` 配下に格納。
+
+### Integration Test
+
+Koa 経由で実行するパターン
+
+* `foo/FooControllerIntegration.spec.ts`
+    * 実際に API を呼び出して結果を確認する
+* `foo/FooControllerTest.spec.ts`
+    * Service を Mock に差し替え API を呼び出して結果を確認する
+* `StaticControllerIntegrationTest.spec.ts`
+    * `/` アクセス時の確認(`koa-static` が設定されているかの確認)
+
 ## 実行方法
 
 ```
@@ -29,7 +44,7 @@ $ npm run format
 $ npm start
 ```
 
-## Circle CI での docker image の build
+## CircleCI での docker image の build
 
 ### 必要な環境変数
 
@@ -49,7 +64,7 @@ $ npm start
 3. feature ブランチの build 時には docker image を作成しない
     * 本当は常に作成した方がいいとは思うのだけど...
 
-## Circle CI 2.0 を local で動作する
+## CircleCI 2.0 を local で動作する
 
 ### 初回だけ実行
 

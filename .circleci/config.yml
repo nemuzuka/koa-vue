@@ -34,8 +34,14 @@ jobs:
           name: Running tslint
           command: npm run tslint-check
       - run:
+          name: Running lint
+          command: npm run lint
+      - run:
           name: Running tests
           command: npm run test
+      - store_artifacts:
+          path: ~/repo/coverage
+          destination: coverage
       - run:
           name: Push application Docker image
           command: |
