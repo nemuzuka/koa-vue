@@ -39,6 +39,9 @@ jobs:
       - run:
           name: Running tests
           command: npm run test
+      - store_artifacts:
+          path: ~/repo/coverage
+          destination: coverage
       - run:
           name: Push application Docker image
           command: |
