@@ -42,6 +42,7 @@ export class FooController implements interfaces.Controller {
       res.body = await this.fooService.create(req.body);
       res.status = 201;
     } catch (err) {
+      console.log(err);
       res.status = 400;
       res.body = { error: err.message };
     }

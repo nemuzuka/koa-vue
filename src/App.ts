@@ -18,4 +18,5 @@ server.setConfig(app => {
 });
 
 const koa = server.build();
-export = koa;
+
+export { koa, container };

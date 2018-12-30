@@ -6,7 +6,7 @@ import * as sut from "../App";
  */
 describe("koa-static の設定テスト.", () => {
   it("/ にアクセスした時 html コンテンツが帰ってくること", done => {
-    request(sut.callback())
+    request(sut.koa.callback())
       .get("/")
       .expect(200)
       .end((err, res) => {
