@@ -44,7 +44,7 @@ $ npm run format
 $ npm start
 ```
 
-## Circle CI での docker image の build
+## CircleCI での docker image の build
 
 ### 必要な環境変数
 
@@ -64,7 +64,7 @@ $ npm start
 3. feature ブランチの build 時には docker image を作成しない
     * 本当は常に作成した方がいいとは思うのだけど...
 
-## Circle CI 2.0 を local で動作する
+## CircleCI 2.0 を local で動作する
 
 ### 初回だけ実行
 
