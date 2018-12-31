@@ -32,14 +32,14 @@
 
 Koa 経由で実行するパターン
 
-* `foo/FooControllerIntegration.spec.ts`
+* [FooControllerIntegration.spec.ts](src/__tests__/foo/FooControllerIntegration.spec.ts)
     * 実際に API を呼び出して結果を確認する
-* `foo/FooControllerTest.spec.ts`
+* [FooControllerTest.spec.ts](src/__tests__/foo/FooControllerTest.spec.ts)
     * Service を Mock に差し替え API を呼び出して結果を確認する
-* `StaticControllerIntegrationTest.spec.ts`
-    * `/` アクセス時の確認(`koa-static` が設定されているかの確認)
-* `foo/FooTest.spec.ts`
+* [FooTest.spec.ts](src/__tests__/foo/FooTest.spec.ts)
     * `class-validator` を使用したケースのテスト
+* [StaticControllerIntegrationTest.spec.ts](src/__tests__/StaticControllerIntegrationTest.spec.ts)
+    * `/` アクセス時の確認(`koa-static` が設定されているかの確認)
 
 ## 実行方法
 
