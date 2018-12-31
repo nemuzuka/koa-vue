@@ -1,6 +1,7 @@
 import * as request from "supertest";
 import { FooService } from "../../foo/FooService";
 import * as sut from "../../App";
+import { FooFixtures } from "../../__fixtures__/foo/FooFixtures";
 
 /**
  * FooController の UnitTest.
@@ -65,5 +66,78 @@ describe("FooController の UnitTest.", () => {
       .get("/foo?id=hoge")
       .expect(200)
       .expect("sage", done);
+  });
+
+  it("createFoo の 正常系 Test.", async () => {
+    // setup
+    // mock 対象は Promise を返すので mockResolvedValue
+    const fooServiceMock = jest.fn<FooService>(() => ({
+      createFoo: jest.fn().mockResolvedValue(FooFixtures.create())
+    }));
+    // mock object に差し替え
+    sut.container
+      .rebind<FooService>("FooService")
+      .toConstantValue(new fooServiceMock());
+
+    // execute
+    const response = await request(sut.koa.callback())
+      .post("/foo/_by-admin")
+      .send({
+        title: "タイトルですよねー！",
+        text: "まぁ、helloかもね",
+        rating: 3,
+        email: "admin@example.com",
+        site: "hoge.example.com",
+        createDate: null
+      });
+    expect(response.status).toBe(201);
+    expect(response.text).toBe(JSON.stringify(FooFixtures.create()));
+  });
+
+  it("createFoo の validate エラー", async () => {
+    // execute
+    const response = await request(sut.koa.callback())
+      .post("/foo/_by-admin")
+      .send({
+        title: "タイトル",
+        text: "まぁ、helloかもね",
+        rating: 3,
+        email: "admin@example.com",
+        site: "hoge.example.com",
+        createDate: null
+      });
+    expect(response.status).toBe(400);
+    const responseObject = JSON.parse(response.text);
+    expect(responseObject.error).toBe("Invalid request.");
+    expect(responseObject.errors.length).toBe(1);
+    expect(responseObject.errors[0].constraints.length).toBe(
+      "title は 10 以上 20 の長さで指定してください。"
+    );
+  });
+
+  it("createFoo の 異常系 Test.", async () => {
+    // setup
+    // mock 対象は Promise を返すので mockRejectedValue
+    const fooServiceMock = jest.fn<FooService>(() => ({
+      createFoo: jest.fn().mockRejectedValue(new Error("yeah"))
+    }));
+    // mock object に差し替え
+    sut.container
+      .rebind<FooService>("FooService")
+      .toConstantValue(new fooServiceMock());
+
+    // execute
+    const response = await request(sut.koa.callback())
+      .post("/foo/_by-admin")
+      .send({
+        title: "タイトルですよねー！",
+        text: "まぁ、helloかもね",
+        rating: 3,
+        email: "admin@example.com",
+        site: "hoge.example.com",
+        createDate: null
+      });
+    expect(response.status).toBe(400);
+    expect(response.text).toBe('{"error":"yeah"}');
   });
 });

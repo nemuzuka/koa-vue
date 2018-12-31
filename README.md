@@ -24,7 +24,9 @@
 
 ## Test
 
-`src/__tests__/` 配下に格納。
+`src/__tests__` 配下に格納。
+
+`src/__fixtures__` 配下にはテスト用の Fixture を格納(テスト対象外)
 
 ### Integration Test
 
@@ -36,6 +38,8 @@ Koa 経由で実行するパターン
     * Service を Mock に差し替え API を呼び出して結果を確認する
 * `StaticControllerIntegrationTest.spec.ts`
     * `/` アクセス時の確認(`koa-static` が設定されているかの確認)
+* `foo/FooTest.spec.ts`
+    * `class-validator` を使用したケースのテスト
 
 ## 実行方法
 
