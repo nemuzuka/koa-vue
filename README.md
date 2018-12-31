@@ -30,16 +30,19 @@
 
 `src/__fixtures__` 配下にはテスト用の Fixture を格納(テスト対象外)
 
+### Unit Test
+
+* [FooTest.spec.ts](src/__tests__/foo/FooTest.spec.ts)
+    * `class-validator` を使用したケースのテスト
+* [FooControllerTest.spec.ts](src/__tests__/foo/FooControllerTest.spec.ts)
+    * Service を Mock に差し替え API を呼び出して結果を確認する
+
 ### Integration Test
 
 Koa 経由で実行するパターン
 
 * [FooControllerIntegration.spec.ts](src/__tests__/foo/FooControllerIntegration.spec.ts)
     * 実際に API を呼び出して結果を確認する
-* [FooControllerTest.spec.ts](src/__tests__/foo/FooControllerTest.spec.ts)
-    * Service を Mock に差し替え API を呼び出して結果を確認する
-* [FooTest.spec.ts](src/__tests__/foo/FooTest.spec.ts)
-    * `class-validator` を使用したケースのテスト
 * [StaticControllerIntegrationTest.spec.ts](src/__tests__/StaticControllerIntegrationTest.spec.ts)
     * `/` アクセス時の確認(`koa-static` が設定されているかの確認)
 
