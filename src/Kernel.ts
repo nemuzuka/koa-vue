@@ -1,9 +1,8 @@
 import { Container } from "inversify";
-import { interfaces } from "inversify-koa-utils";
+import { interfaces, TYPE } from "inversify-koa-utils";
 import { FooServiceImpl } from "./foo/FooServiceImpl";
 import { FooService } from "./foo/FooService";
 import { FooController } from "./foo/FooController";
-import { TYPE } from "inversify-koa-utils";
 
 /**
  * bind 処理.
