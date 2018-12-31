@@ -1,5 +1,6 @@
 import { FooService } from "./FooService";
 import { injectable } from "inversify";
+import { Foo } from "./Foo";
 
 /**
  * FooService の実装クラス.
@@ -22,6 +23,12 @@ export class FooServiceImpl implements FooService {
         hage: "元気でやってますよ"
       };
       resolve(JSON.stringify(response));
+    });
+  }
+
+  createFoo(foo: Foo): Promise<Foo> {
+    return new Promise((resolve, reject) => {
+      resolve(foo);
     });
   }
 }
