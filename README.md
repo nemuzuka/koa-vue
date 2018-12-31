@@ -1,5 +1,7 @@
 # Koa + Vue.js + TypeScript
 
+[![CircleCI](https://circleci.com/gh/nemuzuka/koa-vue.svg?style=svg)](https://circleci.com/gh/nemuzuka/koa-vue)
+
 ## やりたいこと
 
 1. Koa + Vue.js の Web アプリケーションの雛形として使いたい
