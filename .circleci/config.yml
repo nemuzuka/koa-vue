@@ -59,7 +59,7 @@ jobs:
             $(aws ecr get-login --no-include-email)
             docker tag ${IMAGE_NAME} ${ECR_ENDPOINT}/${IMAGE_NAME}
             if [ -n "${CIRCLE_TAG}" ]; then
-              docker tag ${REPOSITORY_NAME}:${CIRCLE_TAG} ${ECR_ENDPOINT}/${IMAGE_NAME}
+              docker tag ${IMAGE_NAME} ${ECR_ENDPOINT}/${REPOSITORY_NAME}:${CIRCLE_TAG}
             fi
             docker push ${ECR_ENDPOINT}/${IMAGE_NAME}
 workflows:
