@@ -10,6 +10,7 @@
     "build": "tsc",
     "test": "jest --env=node --colors --coverage test",
     "serve": "ts-node src/server.ts",
+    "develop": "nodemon & cd client-web; npm run develop",
     "start": "nodemon"
   },
   "keywords": [],

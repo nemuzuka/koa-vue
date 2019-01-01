@@ -18,6 +18,12 @@ npm run build
 ```
 `../vue-public` に出力します。
 
+```
+npm run build-watch
+```
+変更を監視しつつ`../vue-public` に出力します。
+
+
 ### Run your tests
 ```
 npm run test

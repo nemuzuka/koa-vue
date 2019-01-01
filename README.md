@@ -53,6 +53,12 @@ $ npm run format
 $ npm start
 ```
 
+開発時は、以下のコマンドで、Vue.js 側の変更も取り込みます。
+
+```
+$ npm run develop
+```
+
 ## CircleCI での docker image の build
 
 ### 必要な環境変数
