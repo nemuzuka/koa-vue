@@ -45,18 +45,12 @@ jobs:
       - run:
           name: Push application Docker image
           command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              echo "export IMAGE_TAG=master-${CIRCLE_BUILD_NUM}" >> $BASH_ENV
-              source $BASH_ENV
-            elif [ "${CIRCLE_BRANCH}" == "develop" ]; then
-              echo "export IMAGE_TAG=development-${CIRCLE_BUILD_NUM}" >> $BASH_ENV
-              source $BASH_ENV
-            elif [ -n "${CIRCLE_TAG}" ]; then
-              echo "export IMAGE_TAG=${CIRCLE_TAG}" >> $BASH_ENV
-              source $BASH_ENV
-            else
+            if [[ ${CIRCLE_BRANCH} =~ feature ]]; then
               echo "No push branch: ${CIRCLE_BRANCH}"
               exit 0
+            else
+              echo "export IMAGE_TAG=${CIRCLE_BUILD_NUM}" >> $BASH_ENV
+              source $BASH_ENV
             fi
             echo "export IMAGE_NAME=${REPOSITORY_NAME}:${IMAGE_TAG}" >> $BASH_ENV
             source $BASH_ENV
@@ -64,6 +58,9 @@ jobs:
             docker build -t ${IMAGE_NAME} .
             $(aws ecr get-login --no-include-email)
             docker tag ${IMAGE_NAME} ${ECR_ENDPOINT}/${IMAGE_NAME}
+            if [ -n "${CIRCLE_TAG}" ]; then
+              docker tag ${REPOSITORY_NAME}:${CIRCLE_TAG} ${ECR_ENDPOINT}/${IMAGE_NAME}
+            fi
             docker push ${ECR_ENDPOINT}/${IMAGE_NAME}
 workflows:
   version: 2
