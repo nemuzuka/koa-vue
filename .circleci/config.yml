@@ -55,7 +55,7 @@ jobs:
               echo "export IMAGE_TAG=${CIRCLE_BUILD_NUM}" >> $BASH_ENV
               source $BASH_ENV
             fi
-            command: sudo apt-get install -y python3-pip; sudo pip3 install awscli
+            sudo apt-get install -y python3-pip; sudo pip3 install awscli
             echo "export IMAGE_NAME=${REPOSITORY_NAME}:${IMAGE_TAG}" >> $BASH_ENV
             source $BASH_ENV
             echo "IMAGE_TAG: ${IMAGE_TAG} / IMAGE_NAME: ${IMAGE_NAME}"
