@@ -12,5 +12,6 @@ module.exports = {
   testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
   testPathIgnorePatterns: ["/dist/", "/node_modules/", "__fixtures__"],
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
-  collectCoverage: true
+  collectCoverage: true,
+  reporters: ["default", "jest-junit"]
 };
