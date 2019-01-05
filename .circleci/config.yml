@@ -19,9 +19,6 @@ jobs:
           name: Install npms(Client)
           command: |
             cd client-web; npm install; npm rebuild node-sass
-      - run:
-          name: Install dependencies
-          command: sudo apt-get install -y python3-pip; sudo pip3 install awscli
       - save_cache:
           paths:
             - node_modules
@@ -39,9 +36,15 @@ jobs:
       - run:
           name: Running tests
           command: npm run test
+          environment:
+            JEST_JUNIT_OUTPUT: "reports/junit/js-test-results.xml"
+      - store_test_results:
+          path: reports/junit
       - store_artifacts:
           path: ~/repo/coverage
           destination: coverage
+      - store_artifacts:
+          path: reports/junit
       - run:
           name: Push application Docker image
           command: |
@@ -52,6 +55,7 @@ jobs:
               echo "export IMAGE_TAG=${CIRCLE_BUILD_NUM}" >> $BASH_ENV
               source $BASH_ENV
             fi
+            command: sudo apt-get install -y python3-pip; sudo pip3 install awscli
             echo "export IMAGE_NAME=${REPOSITORY_NAME}:${IMAGE_TAG}" >> $BASH_ENV
             source $BASH_ENV
             echo "IMAGE_TAG: ${IMAGE_TAG} / IMAGE_NAME: ${IMAGE_NAME}"
